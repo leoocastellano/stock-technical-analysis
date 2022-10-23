@@ -1,1 +1,50 @@
+from pandas._libs.tslibs import period
+from pandas.core.indexing import _LocationIndexer
+import numpy as np 
+import pandas as pd
+import datetime
+import matplotlib as plt
 
+##installing yahoo finance package
+pip install yfinance
+import yfinance as yf
+
+##importing Apple and Tesla stock history
+apple=yf.Ticker("AAPL").history(period="10y")
+tesla=yf.Ticker("TSLA").history(period="10y")
+
+print(apple.head())
+print(tesla.head())
+
+##mean,median,mode
+apple_mean=np.mean(apple)
+tesla_mean =np.mean(tesla)
+
+apple_median=np.median(apple)
+tesla_median=np.median(tesla)
+
+apple_mode=np.mode(apple)
+tesla_mode=np.mode(tesla)
+
+print(apple.describe())
+print(tesla.describe())
+
+##histograms
+apple_return=apple.pct_change(1)
+tesla_return=tesla.pct_change(1)
+
+apple_hist=np.hist(apple, bins=50, color="blue")
+plt.xlabel("Apple Return")
+plt.ylabel("Frequency")
+plt.title("Apple Returns Frequency")
+plt.axvline(np.mean(apple_return),color="red",linestyle="dashed", linewidth=1,label="mean")
+plt.legend()
+plt.show()
+
+tesla_hist=np.hist(tesla, bins=50, color="blue")
+plt.xlabel("Tesla Return")
+plt.ylabel("Frequency")
+plt.title("Tesla Returns Frequency")
+plt.axvline(np.mean(tesla_return),color="red",linestyle="dashed", linewidth=1,label="mean")
+plt.legend()
+plt.show()
